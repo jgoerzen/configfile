@@ -10,25 +10,10 @@ PREREQUISITES
 
 You must satisfy one or more of these major categories:
 
-1. GHC 6.6 or above (including cpphs)
-   (for GHC 6.4.0 or 6.4.1, use MissingH 0.14.3 or below)
+1. GHC 6.6 or above (including cpphs) or Hugs
 
-2. Hugs 2005xx or above, plus cpphs
-
-   If you don't already have cpphs, get it from
-   http://www.cs.york.ac.uk/fp/cpphs/.
-
-If you need Cabal, get it from http://www.haskell.org/cabal.
-
-Debian users can install the packages cpphs and ghc6
-
-3. GHC extralibs collection, or the individual
-   libraries mentioned in MissingH.cabal
-
-   You can conveniently download them all in one package; see
-
-http://software.complete.org/missingh/wiki/RelatedSoftware#RequisiteLibraries
-
+2. MissingH and its dependencies;
+   see http://software.complete.org/missingh
 
 INSTALLATION
 ------------

@@ -1,23 +1,20 @@
--- arch-tag: MissingH main description file
-Name: MissingH
-Version: 0.18.0
-License: GPL
+Name: ConfigFile
+Version: 1.0.0
+License: LGPL
 Maintainer: John Goerzen <jgoerzen@complete.org>
 Copyright: Copyright (c) 2004-2006 John Goerzen
-homepage: http://software.complete.org/missingh
-synopsis: Large utility library
-Stability: Beta
+homepage: http://software.complete.org/configfile
+synopsis: Configuration file reading & writing
+Stability: Stable
 Hs-Source-Dirs: src
 Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Types,
     Data.ConfigFile.Parser,
 Other-Modules: Data.ConfigFile.Lexer
 Extensions: ExistentialQuantification, OverlappingInstances, 
-   UndecidableInstances, CPP
-Build-Depends: network, parsec, base,
-               haskell98, mtl, HUnit, regex-compat, QuickCheck, FilePath,
-               hslogger
--- Cabal will automatically add unix here on non-Windows platforms
+   UndecidableInstances
+Build-Depends: parsec, base,
+               haskell98, mtl, MissingH>=0.18.0
 GHC-Options: -O2
 
 Executable: runtests

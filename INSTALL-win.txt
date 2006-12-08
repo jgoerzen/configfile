@@ -9,8 +9,8 @@ see the INSTALL file instead of this one.
 PREREQUISITES
 -------------
 
-You need GHC 6.6 or above plus the packages listed at
-http://software.complete.org/missingh/wiki/RelatedSoftware#RequisiteLibraries
+You need GHC 6.6 or above plus MissingH, which you can find at
+http://software.complete.org/missingh
 
 INSTALLATION
 ------------
