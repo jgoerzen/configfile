@@ -9,7 +9,7 @@ Stability: Stable
 Hs-Source-Dirs: src
 Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Types,
-    Data.ConfigFile.Parser,
+    Data.ConfigFile.Parser
 Other-Modules: Data.ConfigFile.Lexer
 Extensions: ExistentialQuantification, OverlappingInstances, 
    UndecidableInstances
