@@ -1,59 +1,57 @@
-Source: missingh
+Source: haskell-configfile
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.6), ghc6 (<< 6.6-999), haskell-devscripts (>= 0.5.6), cpphs, libghc6-network-dev, libghc6-unix-dev, libghc6-mtl-dev, libghc6-hunit-dev, libghc6-quickcheck-dev, libghc6-filepath-dev, libghc6-hslogger-dev
-Build-Depends-Indep: debhelper (>= 4.0.0), haddock, hugs (>= 98.200503.08), haskell-devscripts (>= 0.5.6), ghc6 (>= 6.6), cpphs, libhugs-filepath, libhugs-hunit, libhugs-hslogger
+Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.6), ghc6 (<< 6.6-999), haskell-devscripts (>= 0.5.6), cpphs, libghc6-missingh-dev (>= 0.18.0), libghc6-mtl-dev
+Build-Depends-Indep: debhelper (>= 4.0.0), haddock, hugs (>= 98.200503.08), haskell-devscripts (>= 0.5.6), ghc6 (>= 6.6), cpphs, libhugs-missingh (>= 0.18.0)
 Standards-Version: 3.6.2
 Section: devel
 
-Package: libghc6-missingh-dev
+Package: libghc6-configfile-dev
 Section: devel
 Architecture: any
-Depends: ${haskell:Depends}, libghc6-network-dev, libghc6-unix-dev, libghc6-mtl-dev, libghc6-hunit-dev, libghc6-quickcheck-dev, libghc6-filepath-dev, libghc6-hslogger-dev
-Suggests: missingh-doc
-Description: Library of utility functions for Haskell, GHC6 package 
- MissingH is a library of all sorts of utility functions for
- Haskell programmers.  It is written in pure Haskell and thus should
- be extremely portable and easy to use.  It also has no prerequisites
- save those that are commonly included with Haskell compilers.
+Depends: ${haskell:Depends}, libghc6-missingh-dev (>= 0.18.0), libghc6-mtl-dev
+Suggests: configfile-doc
+Description: Parser and writer for handling sectioned config files in Haskell, GHC package
+ The ConfigFile module works with configuration files in a standard
+ format that is easy for the user to edit, easy for the programmer
+ to work with, yet remains powerful and flexible.  It is inspired by,
+ and compatible with, Python's ConfigParser module.  It uses files
+ that resemble Windows .INI-style files, but with numerous
+ improvements.
  .
- MissingH is based on my MissingLib library for OCaml and contains some
- of the same features.  However, some features are left behind because
- they are already in Haskell or not needed here -- and others are added
- due to things Haskell is missing, or things that Haskell makes
- possible.
+ ConfigFile provides simple calls to both read and write config files.
+ It's possible to make a config file parsable by this module,
+ the Unix shell, and make.
 
-Package: libhugs-missingh
+Package: libhugs-configfile
 Section: devel
 Architecture: all
-Depends: ${haskell:Depends}, libhugs-filepath, libhugs-hunit, libhugs-hslogger
-Suggests: missingh-doc
-Description: Library of utility functions for Haskell, Hugs package 
- MissingH is a library of all sorts of utility functions for
- Haskell programmers.  It is written in pure Haskell and thus should
- be extremely portable and easy to use.  It also has no prerequisites
- save those that are commonly included with Haskell compilers.
+Depends: ${haskell:Depends}, libhugs-missingh (>= 0.18.0)
+Suggests: configfile-doc
+Description: Parser and writer for handling sectioned config files in Haskell, Hugs package
+ The ConfigFile module works with configuration files in a standard
+ format that is easy for the user to edit, easy for the programmer
+ to work with, yet remains powerful and flexible.  It is inspired by,
+ and compatible with, Python's ConfigParser module.  It uses files
+ that resemble Windows .INI-style files, but with numerous
+ improvements.
  .
- MissingH is based on my MissingLib library for OCaml and contains some
- of the same features.  However, some features are left behind because
- they are already in Haskell or not needed here -- and others are added
- due to things Haskell is missing, or things that Haskell makes
- possible.
+ ConfigFile provides simple calls to both read and write config files.
+ It's possible to make a config file parsable by this module,
+ the Unix shell, and make.
 
-Package: missingh-doc
+Package: configfile-doc
 Section: doc
 Architecture: all
-Description: Documentation for Haskell utility library
- MissingH is a library of all sorts of utility functions for
- Haskell programmers.  It is written in pure Haskell and thus should
- be extremely portable and easy to use.  It also has no prerequisites
- save those that are commonly included with Haskell compilers.
+Description: Parser and writer for handling sectioned config files in Haskell, Documentation
+ The ConfigFile module works with configuration files in a standard
+ format that is easy for the user to edit, easy for the programmer
+ to work with, yet remains powerful and flexible.  It is inspired by,
+ and compatible with, Python's ConfigParser module.  It uses files
+ that resemble Windows .INI-style files, but with numerous
+ improvements.
  .
- MissingH is based on my MissingLib library for OCaml and contains some
- of the same features.  However, some features are left behind because
- they are already in Haskell or not needed here -- and others are added
- due to things Haskell is missing, or things that Haskell makes
- possible.
- .
- This package provides the API documentation for MissingH.
+ ConfigFile provides simple calls to both read and write config files.
+ It's possible to make a config file parsable by this module,
+ the Unix shell, and make.
 
