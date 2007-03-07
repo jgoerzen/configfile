@@ -2,9 +2,26 @@ Name: ConfigFile
 Version: 1.0.0
 License: LGPL
 Maintainer: John Goerzen <jgoerzen@complete.org>
+Author: John Goerzen
 Copyright: Copyright (c) 2004-2006 John Goerzen
+license-file: COPYRIGHT
+extra-source-files: COPYING
+Category: Parsing
 homepage: http://software.complete.org/configfile
 synopsis: Configuration file reading & writing
+Description: Parser and writer for handling sectioned config files in
+ Haskell.
+ .
+  The ConfigFile module works with configuration files in a standard
+ format that is easy for the user to edit, easy for the programmer
+ to work with, yet remains powerful and flexible.  It is inspired by,
+ and compatible with, Python's ConfigParser module.  It uses files
+ that resemble Windows .INI-style files, but with numerous
+ improvements.
+ .
+ ConfigFile provides simple calls to both read and write config files.
+ It's possible to make a config file parsable by this module,
+ the Unix shell, and make.
 Stability: Stable
 Hs-Source-Dirs: src
 Exposed-Modules: Data.ConfigFile,
