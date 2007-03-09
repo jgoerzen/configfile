@@ -1,3 +1,9 @@
+haskell-configfile (1.0.1) unstable; urgency=low
+
+  * Rebuild against newer MissingH.
+
+ -- John Goerzen <jgoerzen@complete.org>  Thu,  8 Mar 2007 14:22:03 -0600
+
 haskell-configfile (1.0.0) unstable; urgency=low
 
   * Initial release.  Closes: #402080.
