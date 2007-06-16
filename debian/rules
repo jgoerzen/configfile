@@ -74,7 +74,6 @@ builddocs-stamp:
 	dh_testdir
 
 	make doc
-	#make test-hugs
 
 installdocs: builddocs
 	dh_testdir
@@ -83,7 +82,7 @@ installdocs: builddocs
 	dh_installdirs -i
 
 	dh_haskell -i
-	make test-hugs
+	#make test-hugs  disabled due to hugs disable
 
 # Build architecture-independent files here.
 binary-indep: builddocs installdocs
