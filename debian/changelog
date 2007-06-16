@@ -1,6 +1,7 @@
 haskell-configfile (1.0.2) unstable; urgency=low
 
   * Update hugs deps.  Closes: #419438.
+  * Rebuild for newer GHC.  Closes: #429020.
 
  -- John Goerzen <jgoerzen@complete.org>  Fri, 15 Jun 2007 04:56:25 -0500
 
