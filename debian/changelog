@@ -1,3 +1,9 @@
+haskell-configfile (1.0.2) unstable; urgency=low
+
+  * Update hugs deps.  Closes: #419438.
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 15 Jun 2007 04:56:25 -0500
+
 haskell-configfile (1.0.1) unstable; urgency=low
 
   * Rebuild against newer MissingH.
