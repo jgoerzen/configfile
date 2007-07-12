@@ -1,4 +1,4 @@
-haskell-configfile (1.0.3) unstable; urgency=low
+haskell-configfile (1.0.3) unstable; urgency=medium
 
   * Rebuild with newer MissingH.  Closes: #429486, #429500.
 
