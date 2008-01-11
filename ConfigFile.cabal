@@ -29,7 +29,8 @@ Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Parser
 Other-Modules: Data.ConfigFile.Lexer
 Extensions: ExistentialQuantification, OverlappingInstances, 
-   UndecidableInstances, TypeSynonymInstances
+   UndecidableInstances, TypeSynonymInstances, FlexibleContexts,
+   FlexibleInstances
 Build-Depends: parsec, base,
                haskell98, mtl, MissingH>=1.0.0, containers
 GHC-Options: -O2

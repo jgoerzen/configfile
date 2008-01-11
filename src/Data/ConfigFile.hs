@@ -1,5 +1,5 @@
-{- arch-tag: ConfigParser main file
-Copyright (C) 2004-2006 John Goerzen <jgoerzen@complete.org>
+{-
+Copyright (C) 2004-2008 John Goerzen <jgoerzen@complete.org>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 {- |
    Module     : Data.ConfigFile
-   Copyright  : Copyright (C) 2004-2006 John Goerzen
+   Copyright  : Copyright (C) 2004-2008 John Goerzen
    License    : GNU LGPL, version 2.1 or above
 
    Maintainer : John Goerzen <jgoerzen@complete.org> 
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 Configuration file parsing, generation, and manipulation
 
-Copyright (c) 2004-2006 John Goerzen, jgoerzen\@complete.org
+Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
 
 This module contains extensive documentation.  Please scroll down to the Introduction section to continue reading.
 -}
@@ -107,7 +107,7 @@ import Data.ConfigFile.Types
 import Data.ConfigFile.Parser
 import Data.Map.Utils
 import Data.Either.Utils
-import Data.String
+import Data.String.Utils
 import qualified Data.Map as Map
 import Data.List
 import System.IO(Handle)
