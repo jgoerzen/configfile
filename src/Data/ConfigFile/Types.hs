@@ -1,5 +1,5 @@
-{- arch-tag: ConfigParser types
-Copyright (C) 2004-2005 John Goerzen <jgoerzen@complete.org>
+{-
+Copyright (C) 2004-2008 John Goerzen <jgoerzen@complete.org>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 {- |
    Module     : Data.ConfigFile.Types
-   Copyright  : Copyright (C) 2004-2005 John Goerzen
+   Copyright  : Copyright (C) 2004-2008 John Goerzen
    License    : GNU LGPL, version 2.1 or above
 
    Maintainer : John Goerzen <jgoerzen@complete.org> 
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 Internal types for "Data.ConfigFile".  This module is not intended to be
 used directly by your programs.
 
-Copyright (c) 2004 John Goerzen, jgoerzen\@complete.org
+Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
 -}
 
 module Data.ConfigFile.Types (
