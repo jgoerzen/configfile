@@ -23,17 +23,18 @@ Description: Parser and writer for handling sectioned config files in
  It's possible to make a config file parsable by this module,
  the Unix shell, and make.
 Stability: Stable
+Build-Type: Simple
 Hs-Source-Dirs: src
 Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Types,
     Data.ConfigFile.Parser
 Other-Modules: Data.ConfigFile.Lexer
-Extensions: ExistentialQuantification, OverlappingInstances, 
+Extensions: ExistentialQuantification, OverlappingInstances,
    UndecidableInstances, TypeSynonymInstances, FlexibleContexts,
    FlexibleInstances
 Build-Depends: parsec, base,
                haskell98, mtl, MissingH>=1.0.0, containers
-GHC-Options: -O2
+GHC-Options: -O2 -Wall
 
 Executable: runtests
 Buildable: False

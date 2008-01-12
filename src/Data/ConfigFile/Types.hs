@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    Copyright  : Copyright (C) 2004-2008 John Goerzen
    License    : GNU LGPL, version 2.1 or above
 
-   Maintainer : John Goerzen <jgoerzen@complete.org> 
+   Maintainer : John Goerzen <jgoerzen@complete.org>
    Stability  : provisional
    Portability: portable
 
@@ -32,7 +32,7 @@ Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
 -}
 
 module Data.ConfigFile.Types (
-                                    CPOptions, CPData, 
+                                    CPOptions, CPData,
                                     CPErrorData(..), CPError, {-CPResult,-}
                                     ConfigParser(..),
                                     SectionSpec,
@@ -91,7 +91,7 @@ type CPResult a = MonadError CPError m => m a
 
 {- | This is the main record that is used by 'Data.ConfigFile'.
 -}
-data ConfigParser = ConfigParser 
+data ConfigParser = ConfigParser
     { -- | The data itself
       content :: CPData,
       -- | How to transform an option into a standard representation
@@ -109,5 +109,3 @@ data ConfigParser = ConfigParser
       -- The option value is not assumed to be transformed.
       accessfunc :: (ConfigParser -> SectionSpec -> OptionSpec -> Either CPError String)
     }
-
-

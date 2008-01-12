@@ -1,3 +1,4 @@
+{-# LANGUAGE UndecidableInstances, OverlappingInstances #-}
 {-
 Copyright (C) 2004-2008 John Goerzen <jgoerzen@complete.org>
 
@@ -21,7 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    Copyright  : Copyright (C) 2004-2008 John Goerzen
    License    : GNU LGPL, version 2.1 or above
 
-   Maintainer : John Goerzen <jgoerzen@complete.org> 
+   Maintainer : John Goerzen <jgoerzen@complete.org>
    Stability  : provisional
    Portability: portable
 
@@ -79,7 +80,7 @@ module Data.ConfigFile
 
      -- * Configuring the ConfigParser
      -- $configuringcp
-     
+
      -- ** Access Functions
      simpleAccess, interpolatingAccess,
 
@@ -101,11 +102,10 @@ module Data.ConfigFile
      -- * Output Data
      to_string
 
+    ) where
 
-) where
 import Data.ConfigFile.Types
 import Data.ConfigFile.Parser
-import Data.Map.Utils
 import Data.Either.Utils
 import Data.String.Utils
 import qualified Data.Map as Map
@@ -115,9 +115,8 @@ import Data.Char
 import Control.Monad.Error
 
 -- For interpolatingAccess
-import Text.ParserCombinators.Parsec.Error(ParseError, messageString,
-    errorMessages, Message(..))
-import Text.ParserCombinators.Parsec(parse)
+import Text.ParserCombinators.Parsec.Error (errorMessages, Message(..))
+import Text.ParserCombinators.Parsec (parse)
 
 ----------------------------------------------------------------------
 -- Basic types / default values
@@ -218,22 +217,22 @@ interpolatingAccess maxdepth cp s o =
 defdefaulthandler ::  MonadError CPError m =>
                       ConfigParser -> SectionSpec -> OptionSpec -> m String
 
-defdefaulthandler cp sectn opt = 
+defdefaulthandler cp sectn opt =
     let fm = content cp
-        lookup s o = do sect <- maybeToEither (NoSection s, 
-                                               "get " ++ formatSO sectn opt) $ 
+        lookUp s o = do sect <- maybeToEither (NoSection s,
+                                               "get " ++ formatSO sectn opt) $
                                 Map.lookup s fm
-                        maybeToEither (NoOption o, 
-                                       "get " ++ formatSO sectn opt) $ 
+                        maybeToEither (NoOption o,
+                                       "get " ++ formatSO sectn opt) $
                                 Map.lookup o sect
         trydefault e = if (usedefault cp)
-                       then 
-                            lookup "DEFAULT" opt 
+                       then
+                            lookUp "DEFAULT" opt
                                        -- Use original error if it's not in DEFAULT either
                                        `catchError` (\_ -> throwError e)
                        else throwError e
-        in 
-        lookup sectn opt `catchError` trydefault
+        in
+        lookUp sectn opt `catchError` trydefault
 
 
 {- | Combines two 'ConfigParser's into one.
@@ -244,14 +243,14 @@ the second parser.
 The 'ConfigParser' options in the resulting object will be set as they
 are in the second one passed to this function. -}
 merge :: ConfigParser -> ConfigParser -> ConfigParser
-merge src dest = 
+merge src dest =
     let conv :: String -> String
         conv = optionxform dest
         convFM :: CPOptions -> CPOptions
         convFM = Map.fromList . map (\x -> (conv (fst x), snd x)) . Map.toList
         mergesects a b = Map.union a b
         in
-	dest { content = Map.unionWith mergesects 
+        dest { content = Map.unionWith mergesects
                          (content dest) (Map.map convFM (content src)) }
 
 {- | Utility to do a special case merge. -}
@@ -313,7 +312,7 @@ has_section cp x = Map.member x (content cp)
 
 {- | Adds the specified section name.  Returns a
 'SectionAlreadyExists' error if the
-section was already present.  Otherwise, returns the new 
+section was already present.  Otherwise, returns the new
 'ConfigParser' object.-}
 add_section ::  MonadError CPError m =>
                 ConfigParser -> SectionSpec -> m ConfigParser
@@ -332,7 +331,7 @@ so will always cause a 'NoSection' error.
 remove_section ::  MonadError CPError m =>
                    ConfigParser -> SectionSpec -> m ConfigParser
 remove_section _ "DEFAULT" = throwError $ (NoSection "DEFAULT", "remove_section")
-remove_section cp s = 
+remove_section cp s =
     if has_section cp s
        then return $ cp {content = Map.delete s (content cp)}
        else throwError $ (NoSection s, "remove_section")
@@ -344,15 +343,15 @@ exist.  Otherwise, returns the new 'ConfigParser' object.
 remove_option ::  MonadError CPError m =>
                   ConfigParser -> SectionSpec -> OptionSpec -> m ConfigParser
 remove_option cp s passedo =
-    do sectmap <- maybeToEither (NoSection s, 
-                                 "remove_option " ++ formatSO s passedo) $ 
+    do sectmap <- maybeToEither (NoSection s,
+                                 "remove_option " ++ formatSO s passedo) $
                   Map.lookup s (content cp)
        let o = (optionxform cp) passedo
        let newsect = Map.delete o sectmap
        let newmap = Map.insert s newsect (content cp)
        if Map.member o sectmap
           then return $ cp {content = newmap}
-          else throwError $ (NoOption o, 
+          else throwError $ (NoOption o,
                              "remove_option " ++ formatSO s passedo)
 
 {- | Returns a list of the names of all the options present in the
@@ -362,7 +361,7 @@ Returns an error if the given section does not exist.
 -}
 options ::  MonadError CPError m =>
             ConfigParser -> SectionSpec -> m [OptionSpec]
-options cp x = maybeToEither (NoSection x, "options") $ 
+options cp x = maybeToEither (NoSection x, "options") $
                do
                o <- Map.lookup x (content cp)
                return $ Map.keys o
@@ -373,7 +372,7 @@ in that section.  No special @DEFAULT@ processing is done.  No
 exception could be raised or error returned.
 -}
 has_option :: ConfigParser -> SectionSpec -> OptionSpec -> Bool
-has_option cp s o = 
+has_option cp s o =
     let c = content cp
         v = do secthash <- Map.lookup s c
                return $ Map.member (optionxform cp $ o) secthash
@@ -381,7 +380,7 @@ has_option cp s o =
 
 {- | The class representing the data types that can be returned by "get".
 -}
-class Get_C a where 
+class Get_C a where
     {- | Retrieves a string from the configuration file.
 
 When used in a context where a String is expected, returns that string verbatim.
@@ -421,7 +420,7 @@ The following will produce a False value:
 
  * false -}
     get :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> m a
-                           
+
 instance Get_C String where
     get cp s o = eitherToMonadError $ (accessfunc cp) cp s o
 
@@ -431,11 +430,12 @@ instance Get_C Bool where
 instance (Num t, Read t) => Get_C t where
     get = genericget
 
+genericget :: (Read b, MonadError CPError m) => ConfigParser -> SectionSpec -> OptionSpec -> m b
 genericget cp s o = get cp s o >>= return . read
 
 getbool ::  MonadError CPError m =>
             ConfigParser -> SectionSpec -> OptionSpec -> m Bool
-getbool cp s o = 
+getbool cp s o =
     do val <- get cp s o
        case map toLower . strip $ val of
                   "1" -> return True
@@ -451,6 +451,7 @@ getbool cp s o =
                   _ -> throwError (ParseError $ "couldn't parse bool " ++
                                    val ++ " from " ++ formatSO s o, "getbool")
 
+formatSO :: [Char] -> [Char] -> [Char]
 formatSO s o =
     "(" ++ s ++ "/" ++ o ++ ")"
 
@@ -459,7 +460,7 @@ formatSO s o =
 of the given section.  Returns an error the section is invalid. -}
 items ::  MonadError CPError m =>
           ConfigParser -> SectionSpec -> m [(OptionSpec, String)]
-items cp s = do fm <- maybeToEither (NoSection s, "items") $ 
+items cp s = do fm <- maybeToEither (NoSection s, "items") $
                       Map.lookup s (content cp)
                 return $ Map.toList fm
 
@@ -468,8 +469,8 @@ items cp s = do fm <- maybeToEither (NoSection s, "items") $
 Returns an error if the section does not exist. -}
 set ::  MonadError CPError m =>
         ConfigParser -> SectionSpec -> OptionSpec -> String -> m ConfigParser
-set cp s passedo val = 
-    do sectmap <- maybeToEither (NoSection s, "set " ++ formatSO s passedo) $ 
+set cp s passedo val =
+    do sectmap <- maybeToEither (NoSection s, "set " ++ formatSO s passedo) $
                   Map.lookup s (content cp)
        let o = (optionxform cp) passedo
        let newsect = Map.insert o val sectmap
@@ -481,7 +482,7 @@ It requires only a showable value as its parameter.
 This can be used with bool values, as well as numeric ones.
 
 Returns an error if the section does not exist. -}
-setshow :: (Show a, MonadError CPError m) => 
+setshow :: (Show a, MonadError CPError m) =>
            ConfigParser -> SectionSpec -> OptionSpec -> a -> m ConfigParser
 setshow cp s o val = set cp s o (show val)
 
@@ -497,8 +498,8 @@ input.
 The result is, however, guaranteed to parse the same as the original input.
  -}
 to_string :: ConfigParser -> String
-to_string cp = 
-    let gen_option (key, value) = 
+to_string cp =
+    let gen_option (key, value) =
             key ++ ": " ++ (replace "\n" "\n    " value) ++ "\n"
         gen_section (sect, valfm) = -- gen a section, but omit DEFAULT if empty
             if (sect /= "DEFAULT") || (Map.size valfm > 0)
@@ -594,7 +595,7 @@ Windows .INI file. Here are two samples:
 >inputfile = /etc/passwd
 >names = Peter, Paul, Mary, George, Abrahaham, John, Bill, Gerald, Richard,
 >        Franklin, Woodrow
->color = red 
+>color = red
 
 This defines a file without any explicit section, so all items will
 occur within the default section @DEFAULT@. The @debug@ option can be read
@@ -603,21 +604,21 @@ only. The @names@ entry spans two lines -- any line starting with
 whitespace, and containing something other than whitespace or
 comments, is taken as a continuation of the previous line.
 
-Here's another example: 
+Here's another example:
 
 ># Default options
 >[DEFAULT]
->hostname: localhost 
+>hostname: localhost
 ># Options for the first file
 >[file1]
 >location: /usr/local
 >user: Fred
 >uid: 1000
->optionaltext: Hello, this  entire string is included 
+>optionaltext: Hello, this  entire string is included
 >[file2]
 >location: /opt
 >user: Fred
->uid: 1001 
+>uid: 1001
 
 This file defines three sections. The @DEFAULT@ section specifies an
 entry @hostname@. If you attempt to read the hostname option in any
@@ -634,7 +635,7 @@ beginning and end of all strings. Thus, users can insert whitespace
 before\/after the colon or equal sign if they like, and it will be
 automatically stripped.
 
-Blank lines or lines consisting solely of whitespace are ignored. 
+Blank lines or lines consisting solely of whitespace are ignored.
 
 A line giving an option or a section name may not begin with white space.
 This requirement is necessary so there is no ambiguity between such lines
@@ -649,7 +650,7 @@ cause the parser to ignore everything from that character to the end
 of the line.
 
 Comments /may not/ occur within the definitions of options; that is, you
-may not place a comment in the middle of a line such as @user: Fred@. 
+may not place a comment in the middle of a line such as @user: Fred@.
 That is because the parser considers the comment characters part
 of the string; otherwise, you'd be unable to use those characters in
 your strings. You can, however, \"comment out\" options by putting the
@@ -673,8 +674,8 @@ As an example, consider the following file:
 >arch = i386
 >project = test
 >filename = test_%(arch)s.c
->dir = /usr/src/%(filename)s 
->percent = 5%% 
+>dir = /usr/src/%(filename)s
+>percent = 5%%
 
 With interpolation, you would get these results:
 
@@ -691,7 +692,7 @@ For more details on interpolation, please see the documentation for the
 The basic theory of working with ConfigParser is this:
 
  1. Parse or build a 'ConfigParser' object
- 
+
  2. Work with it in one of several ways
 
  3. To make changes, you discard the original object and use a new one.
@@ -706,7 +707,7 @@ Let's take a look at some basic use cases.
 -}
 
 {- $usagenomonad
-You'll notice that many functions in this module return a 
+You'll notice that many functions in this module return a
 @MonadError 'CPError'@ over some
 type.  Although its definition is not this simple, you can consider this to be
 the same as returning @Either CPError a@.
@@ -717,7 +718,7 @@ functions describes the specific circumstances in which an error may occur in
 more detail.
 
 Some people find it annoying to have to deal with errors manually.
-You can transform errors into exceptions in your code by using 
+You can transform errors into exceptions in your code by using
 'Data.Either.Utils.forceEither'.  Here's an example of this style of programming:
 
 > import Data.Either.Utils
@@ -785,7 +786,7 @@ This returns @[\"opt1\", \"opt2\"]@.  A quite normal value.
 {- $usageerroriomonad
 
 You've seen a nice way to use this module in the Error monad and get an Either
-value out.  But that's the Error monad, so IO is not permitted.  
+value out.  But that's the Error monad, so IO is not permitted.
 Using Haskell's monad transformers, you can run it in the combined
 Error\/IO monad.  That is, you will get an IO result back.  Here is a full
 standalone example of doing that:

@@ -1,4 +1,4 @@
-{- 
+{-
 Copyright (C) 2004-2008 John Goerzen <jgoerzen@complete.org>
 
 This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
    Copyright  : Copyright (C) 2004-2008 John Goerzen
    License    : GNU LGPL, version 2.1 or above
 
-   Maintainer : John Goerzen <jgoerzen@complete.org> 
+   Maintainer : John Goerzen <jgoerzen@complete.org>
    Stability  : provisional
    Portability: portable
 
@@ -50,7 +50,7 @@ import Data.ConfigFile.Types
 
 parse_string :: MonadError CPError m =>
                 String -> m ParseOutput
-parse_string s = 
+parse_string s =
     detokenize "(string)" $ parse loken "(string)" s
 
 --parse_file :: FilePath -> IO (CPResult ParseOutput)
@@ -69,26 +69,29 @@ parse_handle h =
 ----------------------------------------------------------------------
 -- Private funcs
 ----------------------------------------------------------------------
+detokenize :: (Show t, MonadError (CPErrorData, [Char]) m) => SourceName
+           -> Either t [GeneralizedToken CPTok]
+           -> m ParseOutput
 detokenize fp l =
     let conv msg (Left err) = throwError $ (ParseError (show err), msg)
-        conv msg (Right val) = return val
+        conv _ (Right val) = return val
         in do r <- conv "lexer" l
               conv "parser" $ runParser main () fp r
 
 main :: GeneralizedTokenParser CPTok () ParseOutput
 main =
     do {s <- sectionlist; return s}
-    <|> try (do 
+    <|> try (do
              o <- optionlist
              s <- sectionlist
              return $ ("DEFAULT", o) : s
             )
     <|> do {o <- optionlist; return $ [("DEFAULT", o)] }
     <?> "Error parsing config file tokens"
-        
+
 sectionlist :: GeneralizedTokenParser CPTok () ParseOutput
 sectionlist = do {eof; return []}
-              <|> try (do 
+              <|> try (do
                        s <- sectionhead
                        eof
                        return [(s, [])]
@@ -102,7 +105,7 @@ section :: GeneralizedTokenParser CPTok () (String, [(String, String)])
 section = do {sh <- sectionhead; ol <- optionlist; return (sh, ol)}
 
 sectionhead :: GeneralizedTokenParser CPTok () String
-sectionhead = 
+sectionhead =
     let wf (NEWSECTION x) = Just x
         wf _ = Nothing
         in
