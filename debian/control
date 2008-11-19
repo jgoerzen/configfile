@@ -1,8 +1,8 @@
 Source: haskell-configfile
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.8.2), ghc6 (<< 6.8.2-999), haskell-devscripts (>= 0.6.3), cpphs, libghc6-missingh-dev (>= 1.0.2-1), libghc6-mtl-dev
-Build-Depends-Indep: debhelper (>= 4.0.0), haddock, haskell-devscripts (>= 0.6.3), ghc6 (>= 6.6), cpphs
+Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.8.2), ghc6 (<< 6.8.2-999), haskell-devscripts (>= 0.6.13), cpphs, libghc6-missingh-dev (>= 1.0.2-1), libghc6-mtl-dev
+Build-Depends-Indep: debhelper (>= 4.0.0), haddock, haskell-devscripts (>= 0.6.13), ghc6 (>= 6.6), cpphs
 Standards-Version: 3.6.2
 Section: devel
 Homepage: http://software.complete.org/configfile

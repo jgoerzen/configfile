@@ -1,3 +1,9 @@
+haskell-configfile (1.0.4.4) unstable; urgency=low
+
+  * Use dh_haskell_depends.  Closes: #506206.
+
+ -- John Goerzen <jgoerzen@complete.org>  Wed, 19 Nov 2008 05:12:26 -0600
+
 haskell-configfile (1.0.4.3) unstable; urgency=low
 
   * Rebuilt with newer MissingH.  Closes: #504528.
