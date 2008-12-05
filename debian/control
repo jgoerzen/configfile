@@ -1,7 +1,7 @@
 Source: haskell-configfile
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.8.2), ghc6 (<< 6.8.2-999), haskell-devscripts (>= 0.6.13), cpphs, libghc6-missingh-dev (>= 1.0.2-1), libghc6-mtl-dev
+Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.8.2), ghc6 (<< 6.8.2-999), haskell-devscripts (>= 0.6.13), cpphs, libghc6-missingh-dev (>= 1.0.3), libghc6-mtl-dev
 Build-Depends-Indep: debhelper (>= 4.0.0), haddock, haskell-devscripts (>= 0.6.13), ghc6 (>= 6.6), cpphs
 Standards-Version: 3.6.2
 Section: devel
@@ -12,7 +12,7 @@ VCS-Browser: http://git.complete.org/configfile
 Package: libghc6-configfile-dev
 Section: devel
 Architecture: any
-Depends: ${haskell:Depends}, libghc6-missingh-dev (>= 1.0.2.1), libghc6-mtl-dev
+Depends: ${haskell:Depends}, libghc6-missingh-dev (>= 1.0.3), libghc6-mtl-dev
 Suggests: configfile-doc
 Description: Parser and writer for handling sectioned config files in Haskell, GHC package
  The ConfigFile module works with configuration files in a standard
