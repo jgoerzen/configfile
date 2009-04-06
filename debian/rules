@@ -72,7 +72,6 @@ builddocs: builddocs-stamp
 builddocs-stamp:
 	dh_testdir
 
-	make doc
 
 installdocs: builddocs
 	dh_testdir
