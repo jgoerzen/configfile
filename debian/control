@@ -1,7 +1,7 @@
 Source: haskell-configfile
 Priority: optional
 Maintainer: John Goerzen <jgoerzen@complete.org>
-Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.10), haskell-devscripts (>= 0.6.15), cpphs, libghc6-missingh-dev (>= 1.0.3.2), libghc6-mtl-dev
+Build-Depends: debhelper (>= 4.0.0), ghc6 (>= 6.10), haskell-devscripts (>= 0.6.15), cpphs, libghc6-missingh-dev (>= 1.0.3.2), libghc6-mtl-dev, libghc6-hunit-dev, libghc6-testpack-dev
 Build-Depends-Indep: debhelper (>= 4.0.0), haddock, haskell-devscripts (>= 0.6.15), ghc6 (>= 6.8.2dfsg1), cpphs
 Standards-Version: 3.6.2
 Section: devel
