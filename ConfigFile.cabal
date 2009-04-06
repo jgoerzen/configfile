@@ -24,6 +24,7 @@ Description: Parser and writer for handling sectioned config files in
  the Unix shell, and make.
 Stability: Stable
 Build-Type: Simple
+Cabal-Version: >=1.2.3
 
 Flag buildtests
   description: Build the executable to run unit tests
