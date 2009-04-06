@@ -21,7 +21,7 @@ import Test.HUnit
 import Data.ConfigFile
 import Data.Either.Utils
 import System.IO.PlafCompat(nullFileName)
-import Test.HUnit.Utils
+import Test.HUnit.Tools
 import Control.Exception
 import System.IO
 

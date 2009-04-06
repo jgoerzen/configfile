@@ -1,3 +1,9 @@
+haskell-configfile (1.0.5-1) unstable; urgency=low
+
+  * Updates for GHC 6.10.  Closes: #520307.
+
+ -- John Goerzen <jgoerzen@complete.org>  Mon, 06 Apr 2009 10:32:33 -0500
+
 haskell-configfile (1.0.4.6) unstable; urgency=high
 
   * Rebuild for newer GHC.

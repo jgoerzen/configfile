@@ -24,21 +24,32 @@ Description: Parser and writer for handling sectioned config files in
  the Unix shell, and make.
 Stability: Stable
 Build-Type: Simple
-Hs-Source-Dirs: src
-Exposed-Modules: Data.ConfigFile,
+
+Flag buildtests
+  description: Build the executable to run unit tests
+  default: False
+
+Library
+  Hs-Source-Dirs: src
+  Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Types,
     Data.ConfigFile.Parser
-Other-Modules: Data.ConfigFile.Lexer
-Extensions: ExistentialQuantification, OverlappingInstances,
+  Other-Modules: Data.ConfigFile.Lexer
+  Extensions: ExistentialQuantification, OverlappingInstances,
    UndecidableInstances, TypeSynonymInstances, FlexibleContexts,
    FlexibleInstances
-Build-Depends: parsec, base,
-               haskell98, mtl, MissingH>=1.0.0, containers
-GHC-Options: -O2 -Wall
+  Build-Depends: parsec, base,
+                haskell98, mtl, MissingH>=1.0.0, containers
+  GHC-Options: -O2 -Wall
 
-Executable: runtests
-Buildable: False
-Main-Is: runtests.hs
-HS-Source-Dirs: testsrc, .
-Extensions: ExistentialQuantification, OverlappingInstances,
-    UndecidableInstances, CPP
+Executable runtests
+  if flag(buildtests)
+    Buildable: True
+    Build-depends: HUnit, testpack
+  else
+    Buildable: False
+  Main-Is: runtests.hs
+  HS-Source-Dirs: testsrc, src, .
+  Extensions: ExistentialQuantification, OverlappingInstances,
+    UndecidableInstances, CPP, TypeSynonymInstances, FlexibleContexts,
+    FlexibleInstances
