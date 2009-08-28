@@ -1,3 +1,9 @@
+haskell-configfile (1.0.5-2) unstable; urgency=low
+
+  * Switch to Haskell team maintenance.
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 28 Aug 2009 14:29:42 -0500
+
 haskell-configfile (1.0.5-1) unstable; urgency=low
 
   * Updates for GHC 6.10.  Closes: #520307.
