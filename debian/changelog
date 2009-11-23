@@ -1,3 +1,19 @@
+haskell-configfile (1.0.5-2+nmu1) UNRELEASED; urgency=low
+
+  * NMU upload ok-ed by regular maintainer.
+  * debian/rules
+    - Convert to hlibrary.mk (dh_haskell was removed to haskell-devscripts).
+  * debian/control
+    - Depend on haskell-devscripts >= 0.6.18.
+    - Move Build-Depends-Indeps to Build-Depends.
+    - Add hscolour to build deps.
+    - Standards-Version 3.8.3
+    - Section haskell.
+   * debian/compat
+    - Version 5
+
+ -- Erik de Castro Lopo <erikd@mega-nerd.com>  Mon, 23 Nov 2009 19:21:49 +1100
+
 haskell-configfile (1.0.5-2) unstable; urgency=low
 
   * Switch to Haskell team maintenance.
