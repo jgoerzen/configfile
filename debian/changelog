@@ -1,6 +1,6 @@
-haskell-configfile (1.0.5-2+nmu1) UNRELEASED; urgency=low
+haskell-configfile (1.0.5-3) UNRELEASED; urgency=low
 
-  * NMU upload ok-ed by regular maintainer.
+  [ Erik de Castro Lopo ]
   * debian/rules
     - Convert to hlibrary.mk (dh_haskell was removed to haskell-devscripts).
   * debian/control
