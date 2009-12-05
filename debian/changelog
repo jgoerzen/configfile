@@ -1,8 +1,9 @@
-haskell-configfile (1.0.5-3) UNRELEASED; urgency=low
+haskell-configfile (1.0.5-3) unstable; urgency=low
 
   [ Erik de Castro Lopo ]
   * debian/rules
     - Convert to hlibrary.mk (dh_haskell was removed to haskell-devscripts).
+    (Closes: 556827)
   * debian/control
     - Depend on haskell-devscripts >= 0.6.18.
     - Move Build-Depends-Indeps to Build-Depends.
@@ -15,7 +16,7 @@ haskell-configfile (1.0.5-3) UNRELEASED; urgency=low
   [ Joachim Breitner ]
   * Add ${shlibs:Depends}
 
- -- Erik de Castro Lopo <erikd@mega-nerd.com>  Mon, 23 Nov 2009 19:21:49 +1100
+ -- Joachim Breitner <nomeata@debian.org>  Sat, 05 Dec 2009 18:59:35 +0100
 
 haskell-configfile (1.0.5-2) unstable; urgency=low
 
