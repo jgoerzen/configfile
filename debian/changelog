@@ -12,6 +12,9 @@ haskell-configfile (1.0.5-3) UNRELEASED; urgency=low
    * debian/compat
     - Version 5
 
+  [ Joachim Breitner ]
+  * Add ${shlibs:Depends}
+
  -- Erik de Castro Lopo <erikd@mega-nerd.com>  Mon, 23 Nov 2009 19:21:49 +1100
 
 haskell-configfile (1.0.5-2) unstable; urgency=low

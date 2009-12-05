@@ -23,7 +23,7 @@ Vcs-Browser: http://git.debian.org/?p=pkg-haskell/haskell-configfile.git;a=summa
 Package: libghc6-configfile-dev
 Section: haskell
 Architecture: any
-Depends: ${misc:Depends}, ${haskell:Depends}
+Depends: ${misc:Depends}, ${haskell:Depends}, ${shlibs:Depends}
 Suggests: configfile-doc
 Description: Parser and writer for handling sectioned config files in Haskell, GHC package
  The ConfigFile module works with configuration files in a standard
