@@ -5,7 +5,10 @@ Maintainer: John Goerzen <jgoerzen@complete.org>
 Author: John Goerzen
 Copyright: Copyright (c) 2004-2010 John Goerzen
 license-file: COPYRIGHT
-extra-source-files: COPYING
+extra-source-files: COPYING,
+                    README,
+                    Makefile,
+                    testsrc/ConfigParser/test.cfg
 Category: Parsing
 homepage: http://software.complete.org/configfile
 synopsis: Configuration file reading & writing
@@ -51,6 +54,7 @@ Executable runtests
     Buildable: False
   Main-Is: runtests.hs
   HS-Source-Dirs: testsrc, src, .
+  Other-Modules: Tests.hs, ConfigParser.Maintest, ConfigParser.Parsertest
   Extensions: ExistentialQuantification, OverlappingInstances,
     UndecidableInstances, CPP, TypeSynonymInstances, FlexibleContexts,
     FlexibleInstances
