@@ -1,3 +1,10 @@
+haskell-configfile (1.0.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * Rebuild for GHC 6.12.
+
+ -- John Goerzen <jgoerzen@complete.org>  Fri, 19 Feb 2010 09:36:18 -0600
+
 haskell-configfile (1.0.5-3) unstable; urgency=low
 
   [ Erik de Castro Lopo ]
