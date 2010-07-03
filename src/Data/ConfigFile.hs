@@ -427,7 +427,7 @@ instance Get_C String where
 instance Get_C Bool where
     get = getbool
 
-instance (Num t, Read t) => Get_C t where
+instance Read t => Get_C t where
     get = genericget
 
 genericget :: (Read b, MonadError CPError m) => ConfigParser -> SectionSpec -> OptionSpec -> m b
