@@ -37,7 +37,8 @@ Library
   Hs-Source-Dirs: src
   Exposed-Modules: Data.ConfigFile,
     Data.ConfigFile.Types,
-    Data.ConfigFile.Parser
+    Data.ConfigFile.Parser,
+    Data.ConfigFile.Monadic
   Other-Modules: Data.ConfigFile.Lexer
   Extensions: ExistentialQuantification, OverlappingInstances,
    UndecidableInstances, TypeSynonymInstances, FlexibleContexts,
