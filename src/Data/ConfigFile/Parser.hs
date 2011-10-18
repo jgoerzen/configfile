@@ -112,7 +112,7 @@ sectionhead =
         do {s <- tokeng wf; return $ strip s}
 
 optionlist :: GeneralizedTokenParser CPTok () [(String, String)]
-optionlist = many1 coption
+optionlist = many coption
 
 coption :: GeneralizedTokenParser CPTok () (String, String)
 coption =
