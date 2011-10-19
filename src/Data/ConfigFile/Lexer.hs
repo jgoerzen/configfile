@@ -96,8 +96,7 @@ optionkey = many1 oname_chars
 optionvalue = many value_chars
 optionpair :: GenParser Char st (String, String)
 optionpair = do key <- optionkey
-                optionsep
-                value <- optionvalue
+                value <- option "" $ do { optionsep; optionvalue }
                 eolstuff
                 return (key, value)
              <?> "key/value option"
