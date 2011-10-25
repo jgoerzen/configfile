@@ -10,6 +10,12 @@ module Data.ConfigFile.Monadic (
   set, setshow, remove_option, add_section, remove_section
 ) where
 
+import Control.Monad.Error
+import System.IO(Handle)
+import Data.ConfigFile as Reexporting (SectionSpec, OptionSpec, ConfigParser(..),
+                                  CPErrorData, CPError, emptyCP, Get_C(..), sections, merge, to_string)
+import qualified Data.ConfigFile as C
+
 {- $overview
 This module reexports a slightly different version of the standard API which makes it more convenient for chaining monadically.  Everywhere a 'ConfigParser' was the first argument in a function in the standard API, it is now the last.  This lets you rewrite 
 
@@ -30,12 +36,6 @@ as
 which may be more elegant in some cases.  A future development might be to chain the 'ConfigParser' implicitly with a state monad, which would be yet more elegant.
 
 -}
-
-import Control.Monad.Error
-import System.IO(Handle)
-import Data.ConfigFile as Reexporting (SectionSpec, OptionSpec, ConfigParser(..),
-                                  CPErrorData, CPError, emptyCP, Get_C(..), sections, merge, to_string)
-import qualified Data.ConfigFile as C
 
 simpleAccess ::  MonadError CPError m =>
                  SectionSpec -> OptionSpec -> ConfigParser -> m String
