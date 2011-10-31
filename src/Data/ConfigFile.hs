@@ -797,7 +797,7 @@ standalone example of doing that:
 >main = do
 >          rv <- runErrorT $
 >              do
->              cp <- join $ liftIO $ readfile empty "/etc/passwd"
+>              cp <- join $ liftIO $ readfile emptyCP "/etc/passwd"
 >              let x = cp
 >              liftIO $ putStrLn "In the test"
 >              nb <- get x "DEFAULT" "nobody"
