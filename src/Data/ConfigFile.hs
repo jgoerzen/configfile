@@ -430,8 +430,19 @@ instance Get_C Bool where
 instance Read t => Get_C t where
     get = genericget
 
+-- Based on code from Neil Mitchell's safe-0.3.3 package.
+readMaybe :: Read a => String -> Maybe a
+readMaybe s = case [x | (x, t) <- reads s, ("","") <- lex t] of
+                [x] -> Just x
+                _   -> Nothing
+
 genericget :: (Read b, MonadError CPError m) => ConfigParser -> SectionSpec -> OptionSpec -> m b
-genericget cp s o = get cp s o >>= return . read
+genericget cp s o = do
+    val <- get cp s o
+    let errMsg = "couldn't parse value " ++ val ++ " from " ++ formatSO s o
+    maybe (throwError (ParseError errMsg, "genericget"))
+          return
+          $ readMaybe val
 
 getbool ::  MonadError CPError m =>
             ConfigParser -> SectionSpec -> OptionSpec -> m Bool
