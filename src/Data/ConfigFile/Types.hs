@@ -40,7 +40,6 @@ module Data.ConfigFile.Types (
                                     ParseOutput
                                    ) where
 import qualified Data.Map as Map
-import Data.Char
 import Control.Monad.Error
 
 {- | Internal output from parser -}
