@@ -30,6 +30,8 @@ used directly by your programs.
 
 Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
 -}
+
+{-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 module Data.ConfigFile.Parser
 (
  parse_string, parse_file, parse_handle, interpmain, ParseOutput

@@ -30,6 +30,7 @@ used directly by your programs.
 
 Copyright (c) 2004 John Goerzen, jgoerzen\@complete.org
 -}
+{-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 module Data.ConfigFile.Lexer
 (
        -- -- * Temporary for testing
