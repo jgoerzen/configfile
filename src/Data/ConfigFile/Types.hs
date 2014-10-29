@@ -1,25 +1,15 @@
 {-
 Copyright (C) 2004-2008 John Goerzen <jgoerzen@complete.org>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+This program is free software; you can redistribute it and/or modify it, as
+specified in the COPYRIGHT file, under the terms of either version 2.1 of
+the LGPL (or, at your option, any later version) or the 3-clause BSD license.
 -}
 
 {- |
    Module     : Data.ConfigFile.Types
    Copyright  : Copyright (C) 2004-2008 John Goerzen
-   License    : GNU LGPL, version 2.1 or above
+   License    : Either LGPL or BSD3, as specified in the COPYRIGHT file.
 
    Maintainer : John Goerzen <jgoerzen@complete.org>
    Stability  : provisional
