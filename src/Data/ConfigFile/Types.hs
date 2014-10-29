@@ -19,6 +19,11 @@ Internal types for "Data.ConfigFile".  This module is not intended to be
 used directly by your programs.
 
 Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 -}
 
 module Data.ConfigFile.Types (

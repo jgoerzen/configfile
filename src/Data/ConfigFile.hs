@@ -20,6 +20,10 @@ Configuration file parsing, generation, and manipulation
 
 Copyright (c) 2004-2008 John Goerzen, jgoerzen\@complete.org
 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 This module contains extensive documentation.  Please scroll down to the Introduction section to continue reading.
 -}
 module Data.ConfigFile
