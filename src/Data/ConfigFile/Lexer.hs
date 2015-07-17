@@ -25,6 +25,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 -}
+{-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 module Data.ConfigFile.Lexer
 (
        -- -- * Temporary for testing

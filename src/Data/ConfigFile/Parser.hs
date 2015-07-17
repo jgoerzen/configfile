@@ -26,6 +26,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 -}
+
+{-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 module Data.ConfigFile.Parser
 (
  parse_string, parse_file, parse_handle, interpmain, ParseOutput

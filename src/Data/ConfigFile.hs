@@ -103,7 +103,6 @@ import Data.ConfigFile.Parser
 import Data.Either.Utils
 import Data.String.Utils
 import qualified Data.Map as Map
-import Data.List
 import System.IO(Handle)
 import Data.Char
 import Control.Monad.Error
