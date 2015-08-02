@@ -174,7 +174,7 @@ percent = 5%%
 
 With interpolation, you would get these results:
 
-```
+```haskell
 get cp "DEFAULT" "filename" -> "test_i386.c"
 get cp "DEFAULT" "dir" -> "/usr/src/test_i386.c"
 get cp "DEFAULT" "percent" -> "5%"
@@ -212,7 +212,7 @@ Some people find it annoying to have to deal with errors manually. You can trans
 errors into exceptions in your code by using forceEither. Here's an example of this
 style of programming:
 
-```
+```haskell
  import Data.Either.Utils
  do
     val <- readfile emptyCP "/etc/foo.cfg"
@@ -235,7 +235,7 @@ on the Either data type.
 
 Here's a neat example of chaining together calls to build up a ConfigParser object:
 
-```
+```haskell
 do let cp = emptyCP
    cp <- add_section cp "sect1"
    cp <- set cp "sect1" "opt1" "foo"
@@ -250,7 +250,7 @@ Although it's not obvious, there actually was error checking there. If any of th
 calls would have generated an error, processing would have stopped immediately
 and a Left value would have been returned. Consider this example:
 
-```
+```haskell
 do let cp = emptyCP
    cp <- add_section cp "sect1"
    cp <- set cp "sect1" "opt1" "foo"
@@ -264,7 +264,7 @@ computation was considered to be an error.
 
 You can combine this with the non-monadic style to get a final, pure value out of it:
 
-```
+```haskell
 forceEither $ do let cp = emptyCP
                  cp <- add_section cp "sect1"
                  cp <- set cp "sect1" "opt1" "foo"
@@ -281,7 +281,7 @@ But that's the Error monad, so IO is not permitted. Using Haskell's monad transf
 you can run it in the combined Error/IO monad. That is, you will get an IO result back.
 Here is a full standalone example of doing that:
 
-```
+```haskell
 import Data.ConfigFile
 import Control.Monad.Error
 
@@ -334,13 +334,13 @@ It all works quite easily.
 
 The code used to say this:
 
-```
+```haskell
 type CPResult a = MonadError CPError m => m a
 simpleAccess :: ConfigParser -> SectionSpec -> OptionSpec -> CPResult String
 ```
 But Hugs did not support that type declaration. Therefore, types are now given like this:
 
-```
+```haskell
 simpleAccess :: MonadError CPError m =>
                 ConfigParser -> SectionSpec -> OptionSpec -> m String
 ```
@@ -348,132 +348,43 @@ simpleAccess :: MonadError CPError m =>
 Although it looks more confusing than before, it still means the same. The return value
 can still be treated as `Either CPError String` if you so desire.
 
-```
-type SectionSpec = String
-```
-[Source](/blob/upstream/1.1.3/src/Data/ConfigFile/Types.hs#L45) Names of sections
-
-type OptionSpec = String
-Source
-
-Names of options
-
-data ConfigParser
-Source
-
-This is the main record that is used by ConfigFile.
-
-Constructors
-ConfigParser
-
-content :: CPData
-
-The data itself
-<a name="optionxform"></a>optionxform :: OptionSpec -> OptionSpec
-
-How to transform an option into a standard representation
-defaulthandler :: ConfigParser -> SectionSpec -> OptionSpec -> Either CPError String
-
-Function to look up an option, considering a default value if usedefault is True; or ignoring a default value otherwise. The option specification is assumed to be already transformed.
-usedefault :: Bool
-
-Whether or not to seek out a default action when no match is found.
-accessfunc :: ConfigParser -> SectionSpec -> OptionSpec -> Either CPError String
-
-Function that is used to perform lookups, do optional interpolation, etc. It is assumed that accessfunc will internally call defaulthandler to do the underlying lookup. The option value is not assumed to be transformed.
-
-data CPErrorData
-Source
-
-Possible ConfigParser errors.
-
-Constructors
-ParseError String
-
-Parse error
-SectionAlreadyExists SectionSpec
-
-Attempt to create an already-existing ection
-NoSection SectionSpec
-
-The section does not exist
-NoOption OptionSpec
-
-The option does not exist
-OtherProblem String
-
-Miscellaneous error
-InterpolationError String
-
-Raised by interpolatingAccess if a request was made for a non-existant option
-
-Instances
-Eq CPErrorData
-Ord CPErrorData
-Show CPErrorData
-Error CPError
-
-type CPError = (CPErrorData, String)
-Source
-
-Indicates an error occurred. The String is an explanation of the location of the error.
+See Types.hs file for more extensive documentation.
 
 ## <a name="initialization"></a>Initialization
 
+```haskell
+{- | The default empty 'Data.ConfigFile' object.
+
+The content contains only an empty mandatory @DEFAULT@ section.
+
+'optionxform' is set to @map toLower@.
+
+'usedefault' is set to @True@.
+
+'accessfunc' is set to 'simpleAccess'.
+-}
 emptyCP :: ConfigParser
-Source
-
-The default empty ConfigFile object.
-
-The content contains only an empty mandatory DEFAULT section.
-
-optionxform is set to map toLower.
-
-usedefault is set to True.
-
-accessfunc is set to simpleAccess.
+emptyCP = ConfigParser { content = fromAL [("DEFAULT", [])],
+                       defaulthandler = defdefaulthandler,
+                       optionxform = map toLower,
+                       usedefault = True,
+                       accessfunc = simpleAccess}
+```
 
 ## <a name="configuring_the_configparser"></a>Configuring the ConfigParser
 
-You may notice that the ConfigParser object has some configurable parameters, such as usedefault. In case you're not familiar with the Haskell syntax for working with these, you can use syntax like this to set these options:
+You may notice that the `ConfigParser` object has some configurable parameters, such as
+`usedefault`. In case you're not familiar with the Haskell syntax for working with these,
+you can use syntax like this to set these options:
 
+```haskell
 let cp2 = cp { usedefault = False }
+```
 
-This will create a new ConfigParser that is the same as cp except for the usedefault field, which is now always False. The new object will be called cp2 in this example.
+This will create a new ConfigParser that is the same as cp except for the usedefault field,
+which is now always False. The new object will be called `cp2` in this example.
 
 ### <a name="access_functions"></a>Access Functions
-
-simpleAccess :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> m String
-Source
-
-Default (non-interpolating) access function
-
-interpolatingAccess :: MonadError CPError m => Int -> ConfigParser -> SectionSpec -> OptionSpec -> m String
-Source
-
-Interpolating access function. Please see the Interpolation section above for a background on interpolation.
-
-Although the format string looks similar to one used by Text.Printf, it is not the same. In particular, only the %(...)s format is supported. No width specifiers are supported and no conversions other than s are supported.
-
-To use this function, you must specify a maximum recursion depth for interpolation. This is used to prevent a stack overflow in the event that the configuration file contains an endless interpolation loop. Values of 10 or so are usually more than enough, though you could probably go into the hundreds or thousands before you have actual problems.
-
-A value less than one will cause an instant error every time you attempt a lookup.
-
-This access method can cause get and friends to return a new CPError: InterpolationError. This error would be returned when:
-
-    The configuration file makes a reference to an option that does not exist
-    The maximum interpolation depth is exceeded
-    There is a syntax error processing a %-directive in the configuration file
-
-An interpolation lookup name specifies an option only. There is no provision to specify a section. Interpolation variables are looked up in the current section, and, if usedefault is True, in DEFAULT according to the normal logic.
-
-To use a literal percent sign, you must place %% in the configuration file when interpolation is used.
-
-Here is how you might enable interpolation:
-
-let cp2 = cp {accessfunc = interpolatingAccess 10}
-
-The cp2 object will now support interpolation with a maximum depth of 10.
 
 ## <a name="reading"></a>Reading
 
@@ -481,154 +392,16 @@ You can use these functions to read data from a file.
 
 A common idiom for loading a new object from stratch is:
 
+```haskell
 cp <- readfile emptyCP "/etc/foo.cfg"
+```
 
-Note the use of emptyCP; this will essentially cause the file's data to be merged with the empty ConfigParser.
+Note the use of emptyCP; this will essentially cause the file's data to be merged with
+the empty ConfigParser.
 
-readfile :: MonadError CPError m => ConfigParser -> FilePath -> IO (m ConfigParser)
-Source
-
-Loads data from the specified file. It is then combined with the given ConfigParser using the semantics documented under merge with the new data taking precedence over the old. However, unlike merge, all the options as set in the old object are preserved since the on-disk representation does not convey those options.
-
-May return an error if there is a syntax error. May raise an exception if the file could not be accessed.
-
-readhandle :: MonadError CPError m => ConfigParser -> Handle -> IO (m ConfigParser)
-Source
-
-Like readfile, but uses an already-open handle. You should use readfile instead of this if possible, since it will be able to generate better error messages.
-
-Errors would be returned on a syntax error.
-
-readstring :: MonadError CPError m => ConfigParser -> String -> m ConfigParser
-Source
-
-Like readfile, but uses a string. You should use readfile instead of this if you are processing a file, since it can generate better error messages.
-
-Errors would be returned on a syntax error.
 
 ## <a name="accessing_data"></a>Accessing Data
 
-class Get_C a where
-Source
-
-The class representing the data types that can be returned by get.
-
-Methods
-
-get :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> m a
-Source
-
-Retrieves a string from the configuration file.
-
-When used in a context where a String is expected, returns that string verbatim.
-
-When used in a context where a Bool is expected, parses the string to a Boolean value (see logic below).
-
-When used in a context where anything that is an instance of Read is expected, calls read to parse the item.
-
-An error will be returned of no such option could be found or if it could not be parsed as a boolean (when returning a Bool).
-
-When parsing to a Bool, strings are case-insentively converted as follows:
-
-The following will produce a True value:
-
-    1
-    yes
-    on
-    enabled
-    true
-
-The following will produce a False value:
-
-    0
-    no
-    off
-    disabled
-    false
-
-Instances
-Get_C Bool
-Get_C String
-Read t => Get_C t
-
-sections :: ConfigParser -> [SectionSpec]
-Source
-
-Returns a list of sections in your configuration file. Never includes the always-present section DEFAULT.
-
-has_section :: ConfigParser -> SectionSpec -> Bool
-Source
-
-Indicates whether the given section exists.
-
-No special DEFAULT processing is done.
-
-options :: MonadError CPError m => ConfigParser -> SectionSpec -> m [OptionSpec]
-Source
-
-Returns a list of the names of all the options present in the given section.
-
-Returns an error if the given section does not exist.
-
-has_option :: ConfigParser -> SectionSpec -> OptionSpec -> Bool
-Source
-
-Indicates whether the given option is present. Returns True only if the given section is present AND the given option is present in that section. No special DEFAULT processing is done. No exception could be raised or error returned.
-
-items :: MonadError CPError m => ConfigParser -> SectionSpec -> m [(OptionSpec, String)]
-Source
-
-Returns a list of (optionname, value) pairs representing the content of the given section. Returns an error the section is invalid.
-
 ## <a name="modifying_data"></a>Modifying Data
 
-set :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> String -> m ConfigParser
-Source
-
-Sets the option to a new value, replacing an existing one if it exists.
-
-Returns an error if the section does not exist.
-
-setshow :: (Show a, MonadError CPError m) => ConfigParser -> SectionSpec -> OptionSpec -> a -> m ConfigParser
-Source
-
-Sets the option to a new value, replacing an existing one if it exists. It requires only a showable value as its parameter. This can be used with bool values, as well as numeric ones.
-
-Returns an error if the section does not exist.
-
-remove_option :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> m ConfigParser
-Source
-
-Removes the specified option. Returns a NoSection error if the section does not exist and a NoOption error if the option does not exist. Otherwise, returns the new ConfigParser object.
-
-add_section :: MonadError CPError m => ConfigParser -> SectionSpec -> m ConfigParser
-Source
-
-Adds the specified section name. Returns a SectionAlreadyExists error if the section was already present. Otherwise, returns the new ConfigParser object.
-
-remove_section :: MonadError CPError m => ConfigParser -> SectionSpec -> m ConfigParser
-Source
-
-Removes the specified section. Returns a NoSection error if the section does not exist; otherwise, returns the new ConfigParser object.
-
-This call may not be used to remove the DEFAULT section. Attempting to do so will always cause a NoSection error.
-
-merge :: ConfigParser -> ConfigParser -> ConfigParser
-Source
-
-Combines two ConfigParsers into one.
-
-Any duplicate options are resolved to contain the value specified in the second parser.
-
-The ConfigParser options in the resulting object will be set as they are in the second one passed to this function.
-
 ## <a name="output_data"></a>Output Data
-
-to_string :: ConfigParser -> String
-Source
-
-Converts the ConfigParser to a string representation that could be later re-parsed by this module or modified by a human.
-
-Note that this does not necessarily re-create a file that was originally loaded. Things may occur in a different order, comments will be removed, etc. The conversion makes an effort to make the result human-editable, but it does not make an effort to make the result identical to the original input.
-
-The result is, however, guaranteed to parse the same as the original input.
