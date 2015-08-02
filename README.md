@@ -343,7 +343,7 @@ But Hugs did not support that type declaration. Therefore, types are now given l
 ```
 simpleAccess :: MonadError CPError m =>
                 ConfigParser -> SectionSpec -> OptionSpec -> m String
-                ```
+```
 
 Although it looks more confusing than before, it still means the same. The return value
 can still be treated as `Either CPError String` if you so desire.
@@ -368,19 +368,19 @@ ConfigParser
 
 content :: CPData
 
-    The data itself
+The data itself
 <a name="optionxform"></a>optionxform :: OptionSpec -> OptionSpec
 
-    How to transform an option into a standard representation
+How to transform an option into a standard representation
 defaulthandler :: ConfigParser -> SectionSpec -> OptionSpec -> Either CPError String
 
-    Function to look up an option, considering a default value if usedefault is True; or ignoring a default value otherwise. The option specification is assumed to be already transformed.
+Function to look up an option, considering a default value if usedefault is True; or ignoring a default value otherwise. The option specification is assumed to be already transformed.
 usedefault :: Bool
 
-    Whether or not to seek out a default action when no match is found.
+Whether or not to seek out a default action when no match is found.
 accessfunc :: ConfigParser -> SectionSpec -> OptionSpec -> Either CPError String
 
-    Function that is used to perform lookups, do optional interpolation, etc. It is assumed that accessfunc will internally call defaulthandler to do the underlying lookup. The option value is not assumed to be transformed.
+Function that is used to perform lookups, do optional interpolation, etc. It is assumed that accessfunc will internally call defaulthandler to do the underlying lookup. The option value is not assumed to be transformed.
 
 data CPErrorData
 Source
