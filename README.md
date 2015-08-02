@@ -351,7 +351,7 @@ can still be treated as `Either CPError String` if you so desire.
 ```
 type SectionSpec = String
 ```
-[Source](blob/upstream/1.1.3/src/Data/ConfigFile/Types.hs#L45) Names of sections
+[Source](/blob/upstream/1.1.3/src/Data/ConfigFile/Types.hs#L45) Names of sections
 
 type OptionSpec = String
 Source
