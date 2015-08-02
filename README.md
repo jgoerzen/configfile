@@ -28,7 +28,7 @@ This module contains extensive documentation. Please scroll down to the Introduc
   * [Combined Error/IO Monad Usage](#combined_error_io_monad_usage)
 * [Types](#types)
 * [Initialization](#initialization)
-* [Configuring the ConfigParser](#conifguring_the_configparser)
+* [Configuring the ConfigParser](#configuring_the_configparser)
   * [Access Functions](#access_functions)
 * [Reading](#reading)
 * [Accessing Data](#accessing_data)
@@ -78,11 +78,10 @@ ConfigParser file)
 ## <a name="history"></a>History
 
 This module is based on Python's [ConfigParser][] module.
-I had earlier developed an OCaml implementation as part of my [MissingLib][] library.
+I had earlier developed an OCaml implementation as part of my MissingLib library at
+gopher://gopher.quux.org/devel/missinglib.
 
 [configparser]: http://www.python.org/doc/current/lib/module-ConfigParser.html
-[missinglib]: gopher://gopher.quux.org/devel/missinglib
-
 
 While the API of these three modules is similar, and the aim is to preserve all useful
 features of the original Python module, there are some differences in the implementation
