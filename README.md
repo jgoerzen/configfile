@@ -77,8 +77,12 @@ ConfigParser file)
 
 ## <a name="history"></a>History
 
-This module is based on Python's ConfigParser module at http://www.python.org/doc/current/lib/module-ConfigParser.html.
-I had earlier developed an OCaml implementation as part of my MissingLib library at gopher://gopher.quux.org/devel/missinglib.
+This module is based on Python's [ConfigParser][] module.
+I had earlier developed an OCaml implementation as part of my [MissingLib][] library.
+
+[configparser]: http://www.python.org/doc/current/lib/module-ConfigParser.html
+[missinglib]: gopher://gopher.quux.org/devel/missinglib
+
 
 While the API of these three modules is similar, and the aim is to preserve all useful
 features of the original Python module, there are some differences in the implementation
@@ -154,12 +158,12 @@ you'd be unable to use those characters in your strings. You can, however,
 ## <a name="case_sensitivity"></a>Case Sensitivity
 
 By default, section names are case-sensitive but option names are not.
-The latter can be adjusted by adjusting [optionxform](#optionxform).
+The latter can be adjusted by adjusting optionxform.
 
 ## <a name="interpolation"></a>Interpolation
 
 Interpolation is an optional feature, disabled by default. If you replace
-the default accessfunc (simpleAccess) with  [interpolatingAccess](#interpolatingAccess), then you
+the default accessfunc (simpleAccess) with interpolatingAccess, then you
 get interpolation support with get and the other get-based functions.
 
 As an example, consider the following file:
@@ -180,7 +184,7 @@ get cp "DEFAULT" "dir" -> "/usr/src/test_i386.c"
 get cp "DEFAULT" "percent" -> "5%"
 ```
 
-For more details on interpolation, please see the documentation for the [interpolatingAccess](#interpolatingAccess)
+For more details on interpolation, please see the documentation for the interpolatingAccess
 function.
 
 ## <a name="usage_examples"></a>Usage Examples
@@ -382,7 +386,7 @@ you can use syntax like this to set these options:
 let cp2 = cp { usedefault = False }
 ```
 
-This will create a new ConfigParser that is the same as cp except for the usedefault field,
+This will create a new `ConfigParser` that is the same as cp except for the `usedefault` field,
 which is now always False. The new object will be called `cp2` in this example.
 
 ### <a name="access_functions"></a>Access Functions
@@ -399,8 +403,8 @@ A common idiom for loading a new object from stratch is:
 cp <- readfile emptyCP "/etc/foo.cfg"
 ```
 
-Note the use of emptyCP; this will essentially cause the file's data to be merged with
-the empty ConfigParser.
+Note the use of `emptyCP`; this will essentially cause the file's data to be merged with
+the empty `ConfigParser`.
 
 See [ConfigFile.hs](src/Data/ConfigFile.hs) for more extensive documentation.
 
