@@ -22,18 +22,18 @@ This module contains extensive documentation. Please scroll down to the Introduc
   * [Comments](#comments)
   * [Case Sensitivity](#case_sensitivity)
   * [Interpolation](#interpolation)
-* [Usage Examples]
-  * [Non-Monadic Usage]
-  * [Error Monad Usage]
-  * [Combined Error/IO Monad Usage]
-* [Types]
-* [Initialization]
-* [Configuring the ConfigParser]
-  * [Access Functions]
-* [Reading]
-* [Accessing Data]
-* [Modifying Data]
-* [Output Data]
+* [Usage Examples](#usage_examples)
+  * [Non-Monadic Usage](#non-monadic_usage)
+  * [Error Monad Usage](#error_monad_usage)
+  * [Combined Error/IO Monad Usage](#combined_error_io_monad_usage)
+* [Types](#types)
+* [Initialization](#initialization)
+* [Configuring the ConfigParser](#conifguring_the_configparser)
+  * [Access Functions](#access_functions)
+* [Reading](#reading)
+* [Accessing Data](#accessing_data)
+* [Modifying Data](#modifying_data)
+* [Output Data](#output_data)
 
 
 ## <a name="introduction"></a>Introduction
@@ -183,7 +183,7 @@ get cp "DEFAULT" "percent" -> "5%"
 For more details on interpolation, please see the documentation for the [interpolatingAccess](#interpolatingAccess)
 function.
 
-## Usage Examples
+## <a name="usage_examples"></a>Usage Examples
 
 The basic theory of working with ConfigParser is this:
 
@@ -198,7 +198,7 @@ yourself, or adjust options.
 
 Let's take a look at some basic use cases.
 
-## Non-Monadic Usage
+## <a name="non-monadic_usage"></a>Non-Monadic Usage
 
 You'll notice that many functions in this module return a `MonadError CPError` over
 some type. Although its definition is not this simple, you can consider this
@@ -219,7 +219,7 @@ style of programming:
     let cp = forceEither val
     putStrLn "Your setting is:"
     putStrLn $ forceEither $ get cp "sect1" "opt1"
-    ```
+```
 
 In short, you can just put `forceEither $` in front of every call that returns something
 that is a `MonadError`. This is still a pure functional call, so it can be used outside
@@ -228,7 +228,7 @@ of the IO monads. The exception, however, can only be caught in the IO monad.
 If you don't want to bother with forceEither, you can use the error monad. It's simple
 and better... read on.
 
-## Error Monad Usage
+## <a name="error_monad_usage"></a>Error Monad Usage
 
 The return type is actually defined in terms of the Error monad, which is itself based
 on the Either data type.
@@ -241,7 +241,7 @@ do let cp = emptyCP
    cp <- set cp "sect1" "opt1" "foo"
    cp <- set cp "sect1" "opt2" "bar"
    options cp "sect1"
-   ```
+```
 
 The return value of this little snippet is `Right ["opt1", "opt2"]`.
 (Note to beginners: unlike the IO monad, you can escape from the Error monad.)
@@ -256,7 +256,7 @@ do let cp = emptyCP
    cp <- set cp "sect1" "opt1" "foo"
    cp <- set cp "sect2" "opt2" "bar"
    options cp "sect1"
-   ```
+```
 
 The return value from this is `Left (NoSection "sect2", "set")`. The second call
 to set failed, so the final call was skipped, and the result of the entire
@@ -270,11 +270,11 @@ forceEither $ do let cp = emptyCP
                  cp <- set cp "sect1" "opt1" "foo"
                  cp <- set cp "sect1" "opt2" "bar"
                  options cp "sect1"
-                 ```
+```
 
 This returns `["opt1", "opt2"]`. A quite normal value.
 
-## Combined Error/IO Monad Usage
+## <a name="combined_error_io_monad_usage"></a>Combined Error/IO Monad Usage
 
 You've seen a nice way to use this module in the Error monad and get an Either value out.
 But that's the Error monad, so IO is not permitted. Using Haskell's monad transformers,
@@ -297,7 +297,7 @@ main = do
               liftIO $ putStrLn foo
               return "done"
           print rv
-          ```
+```
 
 On my system, this prints:
 
@@ -330,7 +330,7 @@ the error displayed as a Left value.
 
 It all works quite easily.
 
-## Types
+## <a name="types"></a>Types
 
 The code used to say this:
 
@@ -417,7 +417,8 @@ type CPError = (CPErrorData, String)
 Source
 
 Indicates an error occurred. The String is an explanation of the location of the error.
-Initialization
+
+## <a name="initialization"></a>Initialization
 
 emptyCP :: ConfigParser
 Source
@@ -431,14 +432,16 @@ optionxform is set to map toLower.
 usedefault is set to True.
 
 accessfunc is set to simpleAccess.
-Configuring the ConfigParser
+
+## <a name="configuring_the_configparser"></a>Configuring the ConfigParser
 
 You may notice that the ConfigParser object has some configurable parameters, such as usedefault. In case you're not familiar with the Haskell syntax for working with these, you can use syntax like this to set these options:
 
 let cp2 = cp { usedefault = False }
 
 This will create a new ConfigParser that is the same as cp except for the usedefault field, which is now always False. The new object will be called cp2 in this example.
-Access Functions
+
+### <a name="access_functions"></a>Access Functions
 
 simpleAccess :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> m String
 Source
@@ -471,7 +474,8 @@ Here is how you might enable interpolation:
 let cp2 = cp {accessfunc = interpolatingAccess 10}
 
 The cp2 object will now support interpolation with a maximum depth of 10.
-Reading
+
+## <a name="reading"></a>Reading
 
 You can use these functions to read data from a file.
 
@@ -501,7 +505,8 @@ Source
 Like readfile, but uses a string. You should use readfile instead of this if you are processing a file, since it can generate better error messages.
 
 Errors would be returned on a syntax error.
-Accessing Data
+
+## <a name="accessing_data"></a>Accessing Data
 
 class Get_C a where
 Source
@@ -574,7 +579,8 @@ items :: MonadError CPError m => ConfigParser -> SectionSpec -> m [(OptionSpec, 
 Source
 
 Returns a list of (optionname, value) pairs representing the content of the given section. Returns an error the section is invalid.
-Modifying Data
+
+## <a name="modifying_data"></a>Modifying Data
 
 set :: MonadError CPError m => ConfigParser -> SectionSpec -> OptionSpec -> String -> m ConfigParser
 Source
@@ -615,7 +621,8 @@ Combines two ConfigParsers into one.
 Any duplicate options are resolved to contain the value specified in the second parser.
 
 The ConfigParser options in the resulting object will be set as they are in the second one passed to this function.
-Output Data
+
+## <a name="output_data"></a>Output Data
 
 to_string :: ConfigParser -> String
 Source
