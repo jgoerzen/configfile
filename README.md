@@ -348,7 +348,7 @@ simpleAccess :: MonadError CPError m =>
 Although it looks more confusing than before, it still means the same. The return value
 can still be treated as `Either CPError String` if you so desire.
 
-See Types.hs file for more extensive documentation.
+See [Types.hs](src/Data/ConfigFile/Types.hs) for more extensive documentation.
 
 ## <a name="initialization"></a>Initialization
 
@@ -370,6 +370,7 @@ emptyCP = ConfigParser { content = fromAL [("DEFAULT", [])],
                        usedefault = True,
                        accessfunc = simpleAccess}
 ```
+See [ConfigFile.hs](src/Data/ConfigFile.hs) for more extensive documentation.
 
 ## <a name="configuring_the_configparser"></a>Configuring the ConfigParser
 
@@ -386,6 +387,8 @@ which is now always False. The new object will be called `cp2` in this example.
 
 ### <a name="access_functions"></a>Access Functions
 
+See [ConfigFile.hs](src/Data/ConfigFile.hs) for more extensive documentation.
+
 ## <a name="reading"></a>Reading
 
 You can use these functions to read data from a file.
@@ -399,9 +402,16 @@ cp <- readfile emptyCP "/etc/foo.cfg"
 Note the use of emptyCP; this will essentially cause the file's data to be merged with
 the empty ConfigParser.
 
+See [ConfigFile.hs](src/Data/ConfigFile.hs) for more extensive documentation.
 
 ## <a name="accessing_data"></a>Accessing Data
 
+See [ConfigFile.hs](src/Data/ConfigFile.hs).
+
 ## <a name="modifying_data"></a>Modifying Data
 
+See [ConfigFile.hs](src/Data/ConfigFile.hs).
+
 ## <a name="output_data"></a>Output Data
+
+See [ConfigFile.hs](src/Data/ConfigFile.hs).
