@@ -348,10 +348,10 @@ simpleAccess :: MonadError CPError m =>
 Although it looks more confusing than before, it still means the same. The return value
 can still be treated as `Either CPError String` if you so desire.
 
+```
 type SectionSpec = String
-Source
-
-Names of sections
+```
+[Source](blob/upstream/1.1.3/src/Data/ConfigFile/Types.hs#L45) Names of sections
 
 type OptionSpec = String
 Source
