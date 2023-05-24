@@ -61,7 +61,7 @@ test_asserts =
     let f msg inp exp = TestLabel msg $ TestCase $ exp @=? parse_string inp in
         [
          f "e test1" "#foo\nthis is bad data"
-                     (Left (ParseError "\"(string)\" (line 2, column 1):\nunexpected \"t\"\nexpecting end of input, whitespace, start of comment, empty line, start of section or option separator", "lexer"))
+                     (Left (ParseError "\"(string)\" (line 2, column 17):\nunexpected end of input\nexpecting option separator","lexer"))
         ,f "e test2" "[sect1]\n#iiiiii \n  extensionline\n#foo"
                      (Left (ParseError "\"(string)\" (line 4, column 1):\nunexpected EXTENSIONLINE \"extensionline\"","parser"))
         ]
