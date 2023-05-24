@@ -20,7 +20,6 @@ module ConfigParser.Parsertest(tests) where
 import Test.HUnit
 import Data.ConfigFile.Parser
 import Data.ConfigFile.Types
-import Test.HUnit.Tools
 import Control.Exception
 
 test_basic =
