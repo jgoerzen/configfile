@@ -6,7 +6,6 @@ Author: John Goerzen
 Copyright: Copyright (c) 2004-2014 John Goerzen
 license-file: COPYRIGHT
 extra-source-files: README,
-                    Makefile,
                     COPYRIGHT, LGPL-2.1, BSD3,
                     testsrc/ConfigParser/test.cfg
 Category: Parsing
