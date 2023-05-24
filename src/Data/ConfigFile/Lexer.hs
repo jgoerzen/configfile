@@ -109,5 +109,4 @@ iloken =
 --    <?> "Invalid syntax in configuration file"
 
 loken :: Parser [GeneralizedToken CPTok]
-loken = do x <- manyTill iloken eof
-           return $ filter (\y -> snd y /= IGNOREDATA) x
+loken = filter ((/= IGNOREDATA) . snd) <$> manyTill iloken eof
