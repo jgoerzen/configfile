@@ -46,8 +46,11 @@ import Data.ConfigFile.Types
 
 parse_string :: MonadError CPError m =>
                 String -> m ParseOutput
-parse_string s =
-    detokenize "(string)" $ parse loken "(string)" s
+parse_string = parse_string' "(string)"
+
+parse_string' :: MonadError CPError m =>
+                 SourceName -> String -> m ParseOutput
+parse_string' fp s = detokenize fp $ parse loken fp s
 
 --parse_file :: FilePath -> IO (CPResult ParseOutput)
 parse_file :: MonadError CPError m => FilePath -> IO (m ParseOutput)
@@ -57,10 +60,7 @@ parse_file f =
 
 --parse_handle :: Handle -> IO (CPResult ParseOutput)
 parse_handle :: MonadError CPError m => Handle -> IO (m ParseOutput)
-parse_handle h =
-    do s <- hGetContents h
-       let o = parse loken (show h) s
-       return $ detokenize (show h) o
+parse_handle h = parse_string' (show h) <$> hGetContents h
 
 ----------------------------------------------------------------------
 -- Private funcs
