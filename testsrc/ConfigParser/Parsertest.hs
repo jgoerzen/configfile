@@ -63,7 +63,7 @@ test_asserts =
          f "e test1" "#foo\nthis is bad data"
                      (Left (ParseError "\"(string)\" (line 2, column 17):\nunexpected end of input\nexpecting option separator","lexer"))
         ,f "e test2" "[sect1]\n#iiiiii \n  extensionline\n#foo"
-                     (Left (ParseError "\"(string)\" (line 4, column 1):\nunexpected EXTENSIONLINE \"extensionline\"","parser"))
+                     (Left (ParseError "\"(string)\" (line 4, column 1):\nunexpected (\"(string)\" (line 4, column 1),EXTENSIONLINE \"extensionline\")\nexpecting end of input","parser"))
         ]
         
 {-
