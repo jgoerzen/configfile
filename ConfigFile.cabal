@@ -28,6 +28,10 @@ Stability: Stable
 Build-Type: Simple
 Cabal-Version: >=1.8
 
+Source-Repository head
+  Type:     git
+  Location: https://github.com/jgoerzen/configfile
+
 Library
   Hs-Source-Dirs: src
   Exposed-Modules: Data.ConfigFile,
