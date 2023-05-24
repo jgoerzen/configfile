@@ -33,7 +33,7 @@ module Data.ConfigFile.Parser
        --main
 ) where
 import Text.ParserCombinators.Parsec
-import Control.Monad.Error(throwError, MonadError)
+import Control.Monad.Error.Class(MonadError(..))
 import Data.String.Utils
 import Data.ConfigFile.Lexer
 import System.IO(Handle, hGetContents)

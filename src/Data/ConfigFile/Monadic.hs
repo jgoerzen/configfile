@@ -10,7 +10,7 @@ module Data.ConfigFile.Monadic (
   set, setshow, remove_option, add_section, remove_section
 ) where
 
-import Control.Monad.Error
+import Control.Monad.Error.Class
 import System.IO(Handle)
 import Data.ConfigFile as Reexporting (SectionSpec, OptionSpec, ConfigParser(..),
                                   CPErrorData, CPError, emptyCP, Get_C(..), sections, merge, to_string)
