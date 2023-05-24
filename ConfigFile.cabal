@@ -1,12 +1,11 @@
 Name: ConfigFile
-Version: 1.1.4
+Version: 1.2.0
 License: BSD3
 Maintainer: John Goerzen <jgoerzen@complete.org>
 Author: John Goerzen
 Copyright: Copyright (c) 2004-2014 John Goerzen
 license-file: COPYRIGHT
 extra-source-files: README,
-                    Makefile,
                     COPYRIGHT, LGPL-2.1, BSD3,
                     testsrc/ConfigParser/test.cfg
 Category: Parsing
@@ -27,11 +26,11 @@ Description: Parser and writer for handling sectioned config files in
  the Unix shell, and make.
 Stability: Stable
 Build-Type: Simple
-Cabal-Version: >=1.2.3
+Cabal-Version: >=1.8
 
-Flag buildtests
-  description: Build the executable to run unit tests
-  default: False
+Source-Repository head
+  Type:     git
+  Location: https://github.com/jgoerzen/configfile
 
 Library
   Hs-Source-Dirs: src
@@ -40,22 +39,20 @@ Library
     Data.ConfigFile.Parser,
     Data.ConfigFile.Monadic
   Other-Modules: Data.ConfigFile.Lexer
-  Extensions: ExistentialQuantification, OverlappingInstances,
+  Extensions: ExistentialQuantification,
    UndecidableInstances, TypeSynonymInstances, FlexibleContexts,
    FlexibleInstances
   Build-Depends: parsec, base < 5,
                 mtl, MissingH>=1.0.0, containers
-  GHC-Options: -O2 -Wall
+  GHC-Options: -Wall
 
-Executable runtests
-  if flag(buildtests)
-    Buildable: True
-    Build-depends: HUnit, testpack
-  else
-    Buildable: False
+Test-Suite runtests
+  Type: exitcode-stdio-1.0
+  Build-depends: base, ConfigFile, MissingH, HUnit
   Main-Is: runtests.hs
-  HS-Source-Dirs: testsrc, src, .
+  HS-Source-Dirs: testsrc
   Other-Modules: Tests, ConfigParser.Maintest, ConfigParser.Parsertest
-  Extensions: ExistentialQuantification, OverlappingInstances,
+  Extensions: ExistentialQuantification,
     UndecidableInstances, CPP, TypeSynonymInstances, FlexibleContexts,
     FlexibleInstances
+  GHC-Options: -Wall

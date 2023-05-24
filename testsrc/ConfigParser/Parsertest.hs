@@ -20,7 +20,6 @@ module ConfigParser.Parsertest(tests) where
 import Test.HUnit
 import Data.ConfigFile.Parser
 import Data.ConfigFile.Types
-import Test.HUnit.Tools
 import Control.Exception
 
 test_basic =
@@ -44,6 +43,7 @@ test_basic =
           [("Cemptysect", [])]
         ,f "comments4" "[emptysect]\n# [nonexistant]\n" [("emptysect", [])]
         ,f "simple section" "[sect1]\nfoo: bar\n" [("sect1", [("foo", "bar")])]
+        ,f "empty value" "[sect1]\nfoo: \n" [("sect1", [("foo", "")])]
         ,f "comments5" "\n#foo\n[sect1]\n\n#iiii \no1: v1\no2:  v2\no3: v3"
           [("sect1", [("o1", "v1"), ("o2", "v2"), ("o3", "v3")])]
         ,f "comments5ext" "\n#foo\n[sect1]\n\n#iiii \no1: v1\no2:  v2\n o3: v3"
@@ -54,15 +54,16 @@ test_basic =
         ,f "default1" "v1: o1\n[sect1]\nv2: o2" [("DEFAULT", [("v1", "o1")]),
                                      ("sect1", [("v2", "o2")])]
         ,f "simple default" "foo: bar" [("DEFAULT", [("foo", "bar")])]
+        ,f "whitespace in key" "foo bar : baz" [("DEFAULT", [("foo bar", "baz")])]
                ]
 
 test_asserts =
     let f msg inp exp = TestLabel msg $ TestCase $ exp @=? parse_string inp in
         [
          f "e test1" "#foo\nthis is bad data"
-                     (Left (ParseError "\"(string)\" (line 2, column 1):\nunexpected \"t\"\nexpecting end of input, whitespace, start of comment, empty line, start of section or option separator", "lexer"))
+                     (Left (ParseError "\"(string)\" (line 2, column 17):\nunexpected end of input\nexpecting option separator","lexer"))
         ,f "e test2" "[sect1]\n#iiiiii \n  extensionline\n#foo"
-                     (Left (ParseError "\"(string)\" (line 4, column 1):\nunexpected EXTENSIONLINE \"extensionline\"","parser"))
+                     (Left (ParseError "\"(string)\" (line 4, column 1):\nunexpected (\"(string)\" (line 4, column 1),EXTENSIONLINE \"extensionline\")\nexpecting end of input","parser"))
         ]
         
 {-
