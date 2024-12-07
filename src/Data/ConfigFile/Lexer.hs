@@ -91,7 +91,8 @@ optionkey = many1 oname_chars
 optionvalue = many value_chars
 optionpair :: GenParser Char st (String, String)
 optionpair = do key <- optionkey
-                value <- option "" $ do { optionsep; optionvalue }
+                optionsep
+                value <- optionvalue
                 eolstuff
                 return (key, value)
              <?> "key/value option"
@@ -109,5 +110,4 @@ iloken =
 --    <?> "Invalid syntax in configuration file"
 
 loken :: Parser [GeneralizedToken CPTok]
-loken = do x <- manyTill iloken eof
-           return $ filter (\y -> snd y /= IGNOREDATA) x
+loken = filter ((/= IGNOREDATA) . snd) <$> manyTill iloken eof

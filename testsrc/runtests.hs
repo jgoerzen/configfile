@@ -21,5 +21,5 @@ module Main where
 import Test.HUnit
 import Tests
 
-main = runTestTT tests
+main = runTestTTAndExit tests
 

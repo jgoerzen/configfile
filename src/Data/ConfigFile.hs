@@ -106,7 +106,7 @@ import qualified Data.Map as Map
 import Data.List
 import System.IO(Handle)
 import Data.Char
-import Control.Monad.Error
+import Control.Monad.Error.Class
 
 -- For interpolatingAccess
 import Text.ParserCombinators.Parsec.Error (errorMessages, Message(..))
@@ -797,7 +797,7 @@ Error\/IO monad.  That is, you will get an IO result back.  Here is a full
 standalone example of doing that:
 
 >import Data.ConfigFile
->import Control.Monad.Error
+>import Control.Monad.Error.Class
 >
 >main = do
 >          rv <- runErrorT $

@@ -36,7 +36,7 @@ module Data.ConfigFile.Types (
                                    ) where
 import qualified Data.Map as Map
 import Data.Char
-import Control.Monad.Error
+import Control.Monad.Error.Class
 
 {- | Internal output from parser -}
 type ParseOutput = [(String, [(String, String)])]
@@ -72,10 +72,6 @@ data CPErrorData = ParseError String        -- ^ Parse error
 {- | Indicates an error occurred.  The String is an explanation of the location
 of the error. -}
 type CPError = (CPErrorData, String)
-
-instance Error CPError where
-    noMsg = (OtherProblem "", "")
-    strMsg x = (OtherProblem x, "")
 
 {- Removed due to Hugs incompatibility.
 
